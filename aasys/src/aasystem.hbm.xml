@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	
+<!-- hibernate mapping 映射文件 -->
+<hibernate-mapping>
+	<!-- 每一个class对应一个持久化对象 -->
+	<!-- changelog project all classes -->
+	<class name="aasystem.User" table="User">
+		<id name="userID" column="UserID" type="int"></id>
+		<property name="userName" column="UserName" type="string" length="30"></property>
+		<property name="userPassword" column="UserPassword" type="string" length="50"></property>
+		<property name="userEmail" column="UserEmail" type="string" length="50"></property>
+		<property name="userMobile" column="UserMobile" type="string" length="50"></property>
+	    <set name="pays" table="Pay_User"
+            inverse="true" lazy="true" fetch="select" cascade="save-update">
+            <key column="USERID" />
+            <many-to-many column="PAYID" class="aasystem.Pay" />
+    	</set>
+	</class>
+	<class name="aasystem.Pay" table="Pay">
+		<id name="payID" column="PayID" type="int">
+			<generator class="native" />
+		</id>
+		<property name="payType" column="PayType" type="string"></property>
+		<property name="payAmount" column="PayAmount" type="double"></property>
+		<property name="payDetail" column="PayDetail" type="text" length="1000"></property>
+		<property name="payedUserID" column="UserID" type="int"></property>
+		<property name="payDone" column="PayDone" type="int"></property>
+		<property name="payDate" column="PayDate" type="date"></property>
+		<set name="users" table="Pay_User"
+            inverse="false" lazy="true" fetch="select" cascade="save-update">
+            <key column="PAYID" />
+            <many-to-many column="USERID" class="aasystem.User" />
+    	</set>
+	</class>	
+</hibernate-mapping>

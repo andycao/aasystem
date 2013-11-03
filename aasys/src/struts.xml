@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.action.extension" value="action"></constant>
+<constant name="struts.ui.theme" value="xhtml"/>  
+<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+<constant name="struts.devMode" value="true" />
+<constant name="struts.custom.i18n.resources" value="aasysRes" />  
+<package name="default" namespace="/" extends="struts-default">
+
+</package>
+<package name="user_actions" extends="default">
+    	<action name="login" class="userAction" method="login">
+			<result name="success" type="redirectAction">allPayList.action</result>
+			<result name="error">index.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+		
+		<action name="logout" class="userAction" method="logout">
+			<result name="success">index.jsp</result>
+		</action>
+		
+		<action name="changePassword" class="userAction" method="changePassword">
+			<result name="success" type="redirectAction">login.action</result>
+			<result name="error">changePassword.jsp</result>			
+		</action>
+</package>
+
+<package name="show_actions" extends="default">
+
+	<action name="allPayList" class="showAction" method="getAllPayListDescTime">
+		<result name="success">mainpage.jsp</result>
+		<result name="error">error.jsp</result>		
+	</action>
+</package>
+
+<package name="pay_actions" extends="default">
+	<action name="addPay" class="payAction" method="addPay">
+		<result name="success" type="redirectAction">login.action</result>
+		<result name="error">addPay.jsp</result>
+		<result name="login">error/func-error.jsp</result>
+		
+	</action>
+	
+	<action name="removePay" class="payAction" method="removePay">
+		<result name="success" type="redirectAction">login.action</result>
+		<result name="error">error/func-error.jsp</result>
+		<result name="login">error/func-error.jsp</result>
+	</action>
+	
+	<action name="editPay" class="payAction" method="editPay">
+		<result name="success" type="redirectAction">login.action</result>
+		<result name="login">index.jsp</result>
+		<result name="error">error/func-error.jsp</result>
+	</action>
+	
+	<action name="pre_editpay" class="getPayInfo" method="execute">
+		<result name="success">./actionPage/editPay.jsp</result>
+		<result name="error">./error/func-error.jsp</result>
+		<result name="login">./index.jsp</result>
+	</action>
+	
+	<action name="editAAUser" class="AAUserAction" method="execute">
+		<result name="success" type="redirectAction">login.action</result>
+		<result name="error">./error/func-error.jsp</result>
+	</action>
+	<action name="preEditAAUser" class="preAAUserAction" method="execute">
+		<result name="success">./actionPage/editAAUser.jsp</result>
+		<result name="error">./error/func-error.jsp</result>
+	</action>
+</package>
+<include file="./calcFunc.xml"/>
+<include file="./additional.xml"/>
+</struts>

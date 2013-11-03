@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.action.extension" value="action"></constant>
+<constant name="struts.ui.theme" value="xhtml"/>  
+<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+<constant name="struts.devMode" value="true" />
+<constant name="struts.custom.i18n.resources" value="aasysRes" />
+<package name="additional" extends="default">
+	<action name="removeAllMyPay" class="removeAllMyPay" method="execute">
+		<result name="success" type="redirectAction">login.action</result>
+		<result name="error">error/func-error.jsp</result>
+		<result name="login" type="redirectAction">logout.action</result>
+	</action>
+
+</package>
+</struts>
